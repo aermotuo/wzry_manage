@@ -16,3 +16,30 @@ sub,sup{font-size:100%;vertical-align:baseline}
 :link,:visited,ins{text-decoration:none}
 blockquote,q{quotes:none}
 blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}
+
+.transition {
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  transition: all .3s;
+}
+.flex-row{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.flex-column{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.flex-item{
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}

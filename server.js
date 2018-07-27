@@ -5,7 +5,12 @@ const mongoose = require('mongoose');
 const config = require('./server/db.config');
 const bodyParser = require('body-parser');
 
-mongoose.connect(config.url);
+mongoose.connect(config.url, {useNewUrlParser:true}, function(err){
+　　if(err){
+　　　　console.log('Connection Error:' + err)
+　　}else{
+　　　　console.log('Connection success!') }
+})
 
 app.all('*',function(req, res, next){
 	res.header('Access-Control-Allow-Origin','*')

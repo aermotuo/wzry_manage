@@ -5,14 +5,14 @@
 				王者荣耀战队管理平台
 			</div>
 			<div class="p-login__input">
-				<Form ref="formInline" :model="formInline" :rules="ruleInline" block>
+				<Form ref="formInline" :model="user" :rules="ruleInline" block>
 	        <FormItem prop="user">
-            <Input type="text" v-model="formInline.user" size="large"	 placeholder="Username">
+            <Input type="text" v-model="user.username" size="large"	 placeholder="Username">
               <Icon type="person" slot="prepend"></Icon>
             </Input>
 	        </FormItem>
 	        <FormItem prop="password">
-            <Input type="password" v-model="formInline.password" size="large" placeholder="Password">
+            <Input type="password" v-model="user.password" size="large" placeholder="Password">
               <Icon type="locked" slot="prepend"></Icon>
             </Input>
 	        </FormItem>
@@ -31,15 +31,16 @@
 </template>
 
 <script type="text/javascript">
+import md5 from 'md5'
 export default {
     data () {
         return {
-            formInline: {
-                user: '',
+            user: {
+                username: '',
                 password: ''
             },
             ruleInline: {
-                user: [
+                username: [
                     { required: true, message: '请输入用户名', trigger: 'blur' }
                 ],
                 password: [
@@ -55,12 +56,24 @@ export default {
     },
     methods: {
     	login () {
-    		console.log(this.$store.state.apiUrl)
-    		this.$axios.get(this.apiUrl + '/login').then(function (response) {
-				  	console.log(response);
-				}).catch(function (error) {
-				    console.log(error);
-				});
+    		this.$axios({
+				  method: 'post',
+				  url: this.apiUrl + '/api/login',
+				  data: {
+				    username: this.user.username,
+				    password: md5(this.user.password)
+				  }
+				}).then((res) => {
+					if (res.status === 200) {
+						if (res.data.type) {
+							this.$Message.success(res.data.message);
+						} else {
+							this.$Message.error(res.data.message);
+						}
+					} else {
+						this.$Message.error(res.data.message);
+					}
+    		})
     	},
     	register () {
     		this.$router.push('/register')

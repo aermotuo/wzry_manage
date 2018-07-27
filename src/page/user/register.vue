@@ -16,7 +16,7 @@
               <Icon type="locked" slot="prepend"></Icon>
             </Input>
 	        </FormItem>
-	        	<div class="p-login__btn" @click="handleSubmit('formInline')">注册</div>
+	        	<div class="p-login__btn p-login__btn-register" @click="handleSubmit('formInline')">注册</div>
 		    </Form>
 			</div>
 		</div>
@@ -76,7 +76,6 @@ export default {
 						  }
 						}).then((res) => {
 							this.$Message.success(res.data.message, '3秒进行跳转');
-							console.log(res.data.time);
 							setTimeout(() => {
 								this.$router.push('/')
 							}, res.data.time)
@@ -89,44 +88,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-.p-login__bd{
-	position:absolute;
-	width: 100%;
-	height: 100%;
-	background-image: linear-gradient(45deg, #6dc0e0, #6ce89a);
-}
-
-.p-login__window{
-	position:absolute;
-	width:500px;
-	top:50%;
-	left:50%;
-	transform:translate(-50%,-50%);
-}
-.p-login__title{
-	font-size:24px;
-	text-align:center;
-	border-bottom:1px solid #dedede;
-	padding:15px 0;
-}
-.p-login__window{
-	background-color:#fff;
-	border-radius:10px;
-	overflow:hidden;
-}
-.p-login__input{
-	padding:25px 50px;
-	background-color:#fff;
-}
-.p-login__btn{
-	text-align:center;
-	color:#fff;
-	font-size:16px;
-	padding:5px 0;
-	border-radius:5px;
-	background-color:#6ce89a;
-	cursor:pointer;
-}
-</style>
