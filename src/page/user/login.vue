@@ -87,7 +87,7 @@ export default {
 	position:absolute;
 	width: 100%;
 	height: 100%;
-	background-image: linear-gradient(45deg, #6dc0e0, #6ce89a);
+	// background-image: linear-gradient(45deg, #6dc0e0, #6ce89a);
 }
 
 .p-login__window{
