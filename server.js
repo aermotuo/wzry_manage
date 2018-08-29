@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
+
 const userRouter = require('./server/router/user');
+const personRouter = require('./server/router/person');
+
 const mongoose = require('mongoose');
 const config = require('./server/db.config');
 const bodyParser = require('body-parser');
@@ -22,5 +25,6 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.use('/api',userRouter);
+app.use('/api/manage',personRouter);
 
 app.listen(9527)

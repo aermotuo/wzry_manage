@@ -26,65 +26,65 @@
 <script type="text/javascript">
 import md5 from 'md5';
 export default {
-    data () {
-    		const validateUsername = (rule, value, callback) => {
-    			console.log(value);
-          if (!value) {
-              return callback(new Error('用户名不能为空'));
-          }
-          this.$axios(this.apiUrl + '/api/findUserName', {params: {
-          	username: value
-          }}).then((res) => {
-          	if (res.data.type) {
-          		return callback(new Error(res.data.message));
-          	} else {
-          		callback()
-          	}
-          })
-        };
-        return {
-        		type: false,
-            user: {
-                username: '',
-                password: ''
-            },
-            prompt: {
-                username: [
-                    { validator: validateUsername, trigger: 'blur' }
-                ],
-                password: [
-                    { required: true, message: '请输入密码', trigger: 'blur' }
-                ]
-            }
+  data () {
+  		const validateUsername = (rule, value, callback) => {
+  			console.log(value);
+        if (!value) {
+            return callback(new Error('用户名不能为空'));
         }
-    },
-    computed: {
-    	apiUrl () {
-    		return this.$store.state.apiUrl
-    	}
-    },
-    methods: {
-    	handleSubmit (name) {
-    		this.$refs[name].validate((valid) => {
-          if (valid) {
-            this.$axios({
-						  method: 'post',
-						  url: this.apiUrl + '/api/register',
-						  data: {
-						    username: this.user.username,
-						    password: md5(this.user.password)
-						  }
-						}).then((res) => {
-							this.$Message.success(res.data.message, '3秒进行跳转');
-							setTimeout(() => {
-								this.$router.push('/')
-							}, res.data.time)
-						});
-          } else {
-            this.$Message.error('请填写正确的信息!');
-          }
+        this.$axios(this.apiUrl + '/api/findUserName', {params: {
+        	username: value
+        }}).then((res) => {
+        	if (res.data.type) {
+        		return callback(new Error(res.data.message));
+        	} else {
+        		callback()
+        	}
         })
-    	}
-    }
+      };
+      return {
+      		type: false,
+          user: {
+              username: '',
+              password: ''
+          },
+          prompt: {
+              username: [
+                  { validator: validateUsername, trigger: 'blur' }
+              ],
+              password: [
+                  { required: true, message: '请输入密码', trigger: 'blur' }
+              ]
+          }
+      }
+  },
+  computed: {
+  	apiUrl () {
+  		return this.$store.state.apiUrl
+  	}
+  },
+  methods: {
+  	handleSubmit (name) {
+  		this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$axios({
+					  method: 'post',
+					  url: this.apiUrl + '/api/register',
+					  data: {
+					    username: this.user.username,
+					    password: md5(this.user.password)
+					  }
+					}).then((res) => {
+						this.$Message.success(res.data.message, '3秒进行跳转');
+						setTimeout(() => {
+							this.$router.push('/')
+						}, res.data.time)
+					});
+        } else {
+          this.$Message.error('请填写正确的信息!');
+        }
+      })
+  	}
+  }
 }
 </script>
